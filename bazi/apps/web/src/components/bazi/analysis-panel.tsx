@@ -121,6 +121,8 @@ function SectionCard({
   const [detailText, setDetailText] = useState('');
   const [detailStatus, setDetailStatus] = useState<Status>('idle');
 
+  const dimensionLabel = title || body.split('\n').find((l) => l.trim())?.trim().slice(0, 50) || 'analysis';
+
   const startDetail = useCallback(async () => {
     setDetailText('');
     setDetailStatus('loading');
@@ -128,7 +130,7 @@ function SectionCard({
     try {
       const res = await streamFetch(
         '/api/bazi/analysis',
-        { result, locale, dimension: title, summary: body },
+        { result, locale, dimension: dimensionLabel, summary: body },
         (acc) => { setDetailText(acc); setDetailStatus('streaming'); },
       );
 
@@ -140,7 +142,7 @@ function SectionCard({
     } catch {
       setDetailStatus('error');
     }
-  }, [result, locale, title, body]);
+  }, [result, locale, dimensionLabel, body]);
 
   return (
     <div className="rounded-lg border border-gray-100 bg-gray-50 p-5">
@@ -151,7 +153,7 @@ function SectionCard({
         {renderBody(body)}
       </div>
 
-      {/* Detail analysis */}
+      {/* Detail analysis — only on titled sections */}
       {title && (
         <div className="mt-4 border-t border-gray-200 pt-4">
           {detailStatus === 'idle' && (
@@ -201,28 +203,55 @@ function SectionCard({
   );
 }
 
-/** Split markdown by ## headings into sections */
+/** Split markdown by headings into sections.
+ *  Detects: #/##/### Heading, **Heading**, numbered bold like 1. **Heading**
+ */
 function parseSections(md: string): { title: string; body: string }[] {
   const sections: { title: string; body: string }[] = [];
   const lines = md.split('\n');
   let currentTitle = '';
   let currentBody: string[] = [];
 
+  const flush = () => {
+    if (currentTitle || currentBody.length > 0) {
+      sections.push({ title: currentTitle, body: currentBody.join('\n') });
+    }
+  };
+
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed.startsWith('## ')) {
-      if (currentTitle || currentBody.length > 0) {
-        sections.push({ title: currentTitle, body: currentBody.join('\n') });
-      }
-      currentTitle = trimmed.slice(3);
+
+    // ### Heading, ## Heading, # Heading
+    const headingMatch = trimmed.match(/^#{1,3}\s+(.+)/);
+    if (headingMatch) {
+      flush();
+      currentTitle = headingMatch[1];
       currentBody = [];
-    } else {
-      currentBody.push(line);
+      continue;
     }
+
+    // Numbered bold heading: 1. **命格总论** or 1. **命格总论**：xxx
+    const numberedBold = trimmed.match(/^\d+\.\s*\*\*(.+?)\*\*/);
+    if (numberedBold) {
+      flush();
+      currentTitle = numberedBold[1];
+      const afterBold = trimmed.replace(/^\d+\.\s*\*\*.+?\*\*[：:\s]*/, '').trim();
+      currentBody = afterBold ? [afterBold] : [];
+      continue;
+    }
+
+    // Standalone bold line as heading: **命格总论** (whole line is bold)
+    const standaloneBold = trimmed.match(/^\*\*(.+?)\*\*[：:]?\s*$/);
+    if (standaloneBold && trimmed.indexOf('**') === 0) {
+      flush();
+      currentTitle = standaloneBold[1];
+      currentBody = [];
+      continue;
+    }
+
+    currentBody.push(line);
   }
-  if (currentTitle || currentBody.length > 0) {
-    sections.push({ title: currentTitle, body: currentBody.join('\n') });
-  }
+  flush();
   return sections;
 }
 

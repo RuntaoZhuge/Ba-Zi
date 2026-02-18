@@ -10,7 +10,6 @@ import { WuxingChart } from '@/components/bazi/wuxing-chart';
 import { ShiShenTable } from '@/components/bazi/shishen-table';
 import { DaYunTimeline } from '@/components/bazi/dayun-timeline';
 import { AnalysisPanel } from '@/components/bazi/analysis-panel';
-import { DimensionAnalysis } from '@/components/bazi/dimension-analysis';
 import { HistoryPanel } from '@/components/bazi/history-panel';
 import { saveToHistory } from '@/lib/bazi-history';
 
@@ -206,9 +205,6 @@ export default function BaZiCalculatePage() {
               </h2>
               <DaYunTimeline yun={result.yun} liuNian={result.liuNian} result={result} />
             </section>
-
-            {/* Dimension Analysis — standalone detailed analysis per category */}
-            <DimensionAnalysis result={result} />
 
             {/* AI Overview Analysis */}
             <AnalysisPanel result={result} />
