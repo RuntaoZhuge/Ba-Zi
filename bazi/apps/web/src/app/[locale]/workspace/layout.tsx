@@ -8,6 +8,7 @@ import { useState } from 'react';
 interface NavItem {
   labelKey: string;
   href: string;
+  disabled?: boolean;
 }
 
 interface NavSection {
@@ -26,14 +27,17 @@ const NAV_SECTIONS: NavSection[] = [
       {
         labelKey: 'workspace.sidebar.baziDaily',
         href: '/workspace/bazi-daily',
+        disabled: true,
       },
       {
         labelKey: 'workspace.sidebar.baziMarriage',
         href: '/workspace/bazi-marriage',
+        disabled: true,
       },
       {
         labelKey: 'workspace.sidebar.baziBusiness',
         href: '/workspace/bazi-business',
+        disabled: true,
       },
     ],
   },
@@ -41,22 +45,14 @@ const NAV_SECTIONS: NavSection[] = [
     titleKey: 'workspace.sidebar.divinationSection',
     items: [
       { labelKey: 'workspace.sidebar.meihua', href: '/workspace/meihua/daily-decision' },
-      { labelKey: 'workspace.sidebar.liuyao', href: '/workspace/liuyao' },
+      { labelKey: 'workspace.sidebar.liuyao', href: '/workspace/liuyao', disabled: true },
     ],
   },
   {
     titleKey: 'workspace.sidebar.otherSection',
     items: [
-      { labelKey: 'workspace.sidebar.ziwei', href: '/workspace/ziwei-doushu' },
-      { labelKey: 'workspace.sidebar.huangli', href: '/workspace/huangli' },
-      {
-        labelKey: 'workspace.sidebar.history',
-        href: '/workspace/history',
-      },
-      {
-        labelKey: 'workspace.sidebar.records',
-        href: '/workspace/records',
-      },
+      { labelKey: 'workspace.sidebar.ziwei', href: '/workspace/ziwei-doushu', disabled: true },
+      { labelKey: 'workspace.sidebar.huangli', href: '/workspace/huangli', disabled: true },
     ],
   },
 ];
@@ -112,6 +108,15 @@ export default function WorkspaceLayout({
               <ul className="space-y-1">
                 {section.items.map((item) => {
                   const isActive = pathname.endsWith(item.href);
+                  if (item.disabled) {
+                    return (
+                      <li key={item.href}>
+                        <span className="block cursor-not-allowed rounded-md px-3 py-2 text-sm text-gray-300">
+                          {t(item.labelKey)}
+                        </span>
+                      </li>
+                    );
+                  }
                   return (
                     <li key={item.href}>
                       <Link

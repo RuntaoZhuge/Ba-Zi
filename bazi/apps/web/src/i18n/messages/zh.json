@@ -136,24 +136,67 @@
       "水": "水"
     },
     "dimensions": {
-      "title": "专项分析",
-      "career": "事业方向",
-      "careerDesc": "行业选择、职场发展、创业分析",
-      "wealth": "财运分析",
-      "wealthDesc": "正偏财运、求财方式、理财建议",
-      "marriage": "婚姻感情",
-      "marriageDesc": "感情运势、配偶特征、桃花运",
-      "health": "健康分析",
-      "healthDesc": "体质特征、养生方向、注意事项",
-      "fortune": "大运流年",
-      "fortuneDesc": "大运走势、流年吉凶、关键节点",
-      "startAnalysis": "开始专项分析",
       "analyzePeriod": "分析此运",
       "analyzeLiuNian": "分析此年"
     },
     "history": {
       "title": "历史记录",
       "empty": "暂无排盘记录",
+      "clearAll": "清空",
+      "remove": "删除"
+    }
+  },
+  "meihua": {
+    "title": "梅花易数",
+    "subtitle": "传统数术的智慧决策指南",
+    "form": {
+      "method": "起卦方式",
+      "timeMethod": "时间起卦",
+      "numberMethod": "数字起卦",
+      "question": "所问之事",
+      "questionPlaceholder": "请输入您想占问的事情（选填）",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "hour": "时",
+      "upperNumber": "上卦数",
+      "lowerNumber": "下卦数",
+      "upperNumberPlaceholder": "请输入第一个数字",
+      "lowerNumberPlaceholder": "请输入第二个数字",
+      "useCurrentTime": "使用当前时间",
+      "startDivination": "起卦"
+    },
+    "result": {
+      "hexagrams": "卦象",
+      "benGua": "本卦",
+      "huGua": "互卦",
+      "bianGua": "变卦",
+      "changingLine": "动爻",
+      "tiYong": "体用关系",
+      "ti": "体卦",
+      "yong": "用卦",
+      "upperTrigram": "上卦",
+      "lowerTrigram": "下卦",
+      "guaCi": "卦辞"
+    },
+    "errors": {
+      "calculationFailed": "起卦出错，请重试",
+      "invalidNumber": "请输入有效的数字"
+    },
+    "analysis": {
+      "title": "AI 卦象分析",
+      "startAnalysis": "开始分析",
+      "analyzing": "分析中...",
+      "error": "分析失败，请重试",
+      "noApiKey": "AI 分析服务暂未配置",
+      "detailAnalysis": "深入分析",
+      "reAnalyze": "重新分析",
+      "retry": "重试",
+      "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
+    },
+    "history": {
+      "title": "占卦记录",
+      "empty": "暂无占卦记录",
       "clearAll": "清空",
       "remove": "删除"
     }

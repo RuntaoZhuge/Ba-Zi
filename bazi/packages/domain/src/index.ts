@@ -9,6 +9,11 @@ export { calculateBaZi } from './bazi/calculator.js';
 export { extractAnalysisContext } from './bazi/analysis.js';
 export type { AnalysisContext } from './bazi/analysis.js';
 
+// Meihua (梅花易数)
+export { calculateMeihua } from './meihua/calculator.js';
+export { extractMeihuaAnalysisContext } from './meihua/analysis.js';
+export type { MeihuaAnalysisContext } from './meihua/analysis.js';
+
 export type {
   // Input types
   BirthInput,
@@ -46,4 +51,17 @@ export type {
   BaZiChart,
   BaZiResult,
   CalculationStep,
+
+  // Meihua types
+  TrigramName,
+  MeihuaMethod,
+  MeihuaTimeInput,
+  MeihuaNumberInput,
+  MeihuaInput,
+  Trigram,
+  Hexagram,
+  ChangingLinePosition,
+  WuxingRelation,
+  TiYongAnalysis,
+  MeihuaResult,
 } from './types.js';

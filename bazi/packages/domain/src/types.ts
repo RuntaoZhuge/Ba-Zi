@@ -234,3 +234,88 @@ export interface BaZiResult {
   yun: YunInfo;
   liuNian: LiuNianFortune[];
 }
+
+// === Mei Hua Yi Shu (梅花易数) Types ===
+
+export type TrigramName = '乾' | '兑' | '离' | '震' | '巽' | '坎' | '艮' | '坤';
+
+export type MeihuaMethod = 'time' | 'number';
+
+export interface MeihuaTimeInput {
+  method: 'time';
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  question?: string;
+}
+
+export interface MeihuaNumberInput {
+  method: 'number';
+  upperNumber: number;
+  lowerNumber: number;
+  question?: string;
+}
+
+export type MeihuaInput = MeihuaTimeInput | MeihuaNumberInput;
+
+/** A single trigram (经卦 / 三爻卦) */
+export interface Trigram {
+  name: TrigramName;
+  /** Xiantian number: 乾1 兑2 离3 震4 巽5 坎6 艮7 坤8 */
+  number: number;
+  /** Unicode symbol: ☰☱☲☳☴☵☶☷ */
+  symbol: string;
+  wuxing: WuXing;
+  /** Natural image: 天泽火雷风水山地 */
+  image: string;
+  /** Three lines from bottom to top. true = yang (───), false = yin (─ ─) */
+  lines: [boolean, boolean, boolean];
+}
+
+/** A full hexagram (别卦 / 六爻卦) */
+export interface Hexagram {
+  /** Hexagram name, e.g. "天火同人" */
+  name: string;
+  upper: Trigram;
+  lower: Trigram;
+  /** Six lines from bottom (index 0) to top (index 5) */
+  lines: [boolean, boolean, boolean, boolean, boolean, boolean];
+  /** King Wen sequence number (1-64) */
+  kingWenNumber: number;
+  /** Traditional hexagram judgement text (卦辞) */
+  guaCi: string;
+}
+
+export type ChangingLinePosition = 1 | 2 | 3 | 4 | 5 | 6;
+
+/** Five-element relationship between Ti and Yong */
+export type WuxingRelation = '生' | '克' | '被生' | '被克' | '比和';
+
+export interface TiYongAnalysis {
+  /** Ti (体) trigram — the one WITHOUT the changing line */
+  ti: Trigram;
+  /** Yong (用) trigram — the one WITH the changing line */
+  yong: Trigram;
+  tiPosition: 'upper' | 'lower';
+  relation: WuxingRelation;
+  /** Human-readable summary */
+  summary: string;
+}
+
+export interface MeihuaResult {
+  input: MeihuaInput;
+  timestamp: number;
+  /** Original hexagram (本卦) */
+  benGua: Hexagram;
+  /** Mutual hexagram (互卦) */
+  huGua: Hexagram;
+  /** Changed hexagram (变卦) */
+  bianGua: Hexagram;
+  /** Position of the changing line (1-6 from bottom) */
+  changingLine: ChangingLinePosition;
+  /** Changing line text (动爻爻辞) */
+  changingLineCi: string;
+  tiYong: TiYongAnalysis;
+  calculationLog: { step: string; detail: string }[];
+}

@@ -10,11 +10,11 @@ export default function HomePage() {
       href: '/workspace/bazi-calculate',
       emoji: '🏯',
     },
-    { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅' },
-    { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑' },
+    { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅', disabled: true },
+    { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑', disabled: true },
     { key: 'meihua', href: '/workspace/meihua/daily-decision', emoji: '🌸' },
-    { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰' },
-    { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐' },
+    { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰', disabled: true },
+    { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐', disabled: true },
   ];
 
   return (
@@ -51,21 +51,36 @@ export default function HomePage() {
 
         {/* Feature Grid */}
         <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ key, href, emoji }) => (
-            <Link
-              key={key}
-              href={href}
-              className="rounded-xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-sm"
-            >
-              <div className="mb-3 text-3xl">{emoji}</div>
-              <h3 className="mb-1 font-semibold">
-                {t(`home.features.${key}`)}
-              </h3>
-              <p className="text-sm text-gray-500">
-                {t(`home.features.${key}Desc`)}
-              </p>
-            </Link>
-          ))}
+          {features.map(({ key, href, emoji, disabled }) =>
+            disabled ? (
+              <div
+                key={key}
+                className="cursor-not-allowed rounded-xl border border-gray-100 bg-gray-50 p-6 opacity-50"
+              >
+                <div className="mb-3 text-3xl">{emoji}</div>
+                <h3 className="mb-1 font-semibold text-gray-400">
+                  {t(`home.features.${key}`)}
+                </h3>
+                <p className="text-sm text-gray-300">
+                  {t(`home.features.${key}Desc`)}
+                </p>
+              </div>
+            ) : (
+              <Link
+                key={key}
+                href={href}
+                className="rounded-xl border border-gray-200 bg-white p-6 transition hover:border-gray-300 hover:shadow-sm"
+              >
+                <div className="mb-3 text-3xl">{emoji}</div>
+                <h3 className="mb-1 font-semibold">
+                  {t(`home.features.${key}`)}
+                </h3>
+                <p className="text-sm text-gray-500">
+                  {t(`home.features.${key}Desc`)}
+                </p>
+              </Link>
+            ),
+          )}
         </div>
       </main>
 

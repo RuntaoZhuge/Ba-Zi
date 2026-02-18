@@ -136,23 +136,66 @@
       "水": "Water"
     },
     "dimensions": {
-      "title": "Specialized Analysis",
-      "career": "Career Direction",
-      "careerDesc": "Industries, career path, entrepreneurship",
-      "wealth": "Wealth Analysis",
-      "wealthDesc": "Income style, financial advice, peak periods",
-      "marriage": "Marriage & Love",
-      "marriageDesc": "Romance, partner traits, timing",
-      "health": "Health Analysis",
-      "healthDesc": "Constitution, wellness, precautions",
-      "fortune": "Fortune Cycles",
-      "fortuneDesc": "Fortune trends, annual outlook, key periods",
-      "startAnalysis": "Start Analysis",
       "analyzePeriod": "Analyze Period",
       "analyzeLiuNian": "Analyze Year"
     },
     "history": {
       "title": "History",
+      "empty": "No records yet",
+      "clearAll": "Clear all",
+      "remove": "Remove"
+    }
+  },
+  "meihua": {
+    "title": "Plum Blossom Oracle",
+    "subtitle": "Traditional numerology for decision guidance",
+    "form": {
+      "method": "Divination Method",
+      "timeMethod": "Time-based",
+      "numberMethod": "Number-based",
+      "question": "Your Question",
+      "questionPlaceholder": "Enter what you want to divine about (optional)",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "hour": "Hour",
+      "upperNumber": "Upper Number",
+      "lowerNumber": "Lower Number",
+      "upperNumberPlaceholder": "Enter first number",
+      "lowerNumberPlaceholder": "Enter second number",
+      "useCurrentTime": "Use current time",
+      "startDivination": "Cast Oracle"
+    },
+    "result": {
+      "hexagrams": "Hexagrams",
+      "benGua": "Original",
+      "huGua": "Mutual",
+      "bianGua": "Changed",
+      "changingLine": "Changing Line",
+      "tiYong": "Ti-Yong Relationship",
+      "ti": "Ti (Subject)",
+      "yong": "Yong (Object)",
+      "upperTrigram": "Upper Trigram",
+      "lowerTrigram": "Lower Trigram",
+      "guaCi": "Hexagram Text"
+    },
+    "errors": {
+      "calculationFailed": "Divination failed, please try again",
+      "invalidNumber": "Please enter a valid number"
+    },
+    "analysis": {
+      "title": "AI Hexagram Analysis",
+      "startAnalysis": "Start Analysis",
+      "analyzing": "Analyzing...",
+      "error": "Analysis failed, please try again",
+      "noApiKey": "AI analysis service is not configured",
+      "detailAnalysis": "In-depth Analysis",
+      "reAnalyze": "Re-analyze",
+      "retry": "Retry",
+      "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
+    },
+    "history": {
+      "title": "Divination History",
       "empty": "No records yet",
       "clearAll": "Clear all",
       "remove": "Remove"
