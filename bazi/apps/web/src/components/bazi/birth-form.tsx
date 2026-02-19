@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import type { BirthInput, Gender, CalendarType, ZiHourMode } from '@bazi/domain';
 import { CitySelector } from './city-selector';
 import type { City } from '@/data/cities';
@@ -10,9 +10,12 @@ interface BirthFormProps {
   onSubmit: (input: BirthInput) => void;
   isLoading?: boolean;
   onNameChange?: (name: string) => void;
+  submitLabel?: string;
+  hideSubmit?: boolean;
 }
 
-export function BirthForm({ onSubmit, isLoading, onNameChange }: BirthFormProps) {
+export const BirthForm = forwardRef<HTMLFormElement, BirthFormProps>(
+  function BirthForm({ onSubmit, isLoading, onNameChange, submitLabel, hideSubmit }, ref) {
   const t = useTranslations();
 
   const currentYear = new Date().getFullYear();
@@ -51,7 +54,7 @@ export function BirthForm({ onSubmit, isLoading, onNameChange }: BirthFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form ref={ref} onSubmit={handleSubmit} className="space-y-6">
       {/* Name */}
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -323,13 +326,16 @@ export function BirthForm({ onSubmit, isLoading, onNameChange }: BirthFormProps)
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="w-full rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:opacity-50"
-      >
-        {isLoading ? t('common.loading') : t('common.calculate')}
-      </button>
+      {!hideSubmit && (
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:opacity-50"
+        >
+          {isLoading ? t('common.loading') : (submitLabel || t('common.calculate'))}
+        </button>
+      )}
     </form>
   );
-}
+  },
+);

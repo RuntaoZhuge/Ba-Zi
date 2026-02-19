@@ -235,6 +235,87 @@ export interface BaZiResult {
   liuNian: LiuNianFortune[];
 }
 
+// === Daily Fortune (每日运势) Types ===
+
+export interface DailyFortuneContext {
+  /** Day master from natal chart */
+  dayMaster: HeavenlyStem;
+  /** Destiny pattern */
+  mingge: string;
+  /** Useful god element */
+  yongShen: WuXing;
+  /** Favorable element */
+  xiShen: WuXing;
+  /** Unfavorable element */
+  jiShen: WuXing;
+  /** Today's year GanZhi */
+  todayYear: string;
+  /** Today's month GanZhi */
+  todayMonth: string;
+  /** Today's day GanZhi */
+  todayDay: string;
+  /** Current DaYun period */
+  currentDaYun: { ganZhi: string; startAge: number; endAge: number } | null;
+  /** Current LiuNian */
+  currentLiuNian: { year: number; ganZhi: string } | null;
+  /** Current age */
+  currentAge: number;
+  /** Today's day stem ten-god relation vs day master */
+  dayGanShiShen: string;
+  /** Today's day branch relation vs natal day branch */
+  dayZhiRelation: string;
+  /** XunKong */
+  xunKong: string;
+  /** Target date */
+  targetDate: { year: number; month: number; day: number };
+}
+
+// === Marriage Compatibility (八字合婚) Types ===
+
+export interface MarriageCompatibility {
+  /** Overall score 0-100 */
+  overallScore: number;
+
+  dayMasterRelation: {
+    maleStem: HeavenlyStem;
+    femaleStem: HeavenlyStem;
+    /** e.g. "甲己合化土", null if no combination */
+    combination: string | null;
+    /** Male day master's ten-god relation to female day master */
+    shiShenMaleToFemale: string;
+    /** Female day master's ten-god relation to male day master */
+    shiShenFemaleToMale: string;
+    score: number;
+  };
+
+  wuxingBalance: {
+    score: number;
+    complementary: WuXing[];
+    conflicting: WuXing[];
+  };
+
+  yongShenMatch: {
+    score: number;
+    maleYongShen: WuXing;
+    femaleYongShen: WuXing;
+    maleXiShen: WuXing;
+    femaleXiShen: WuXing;
+  };
+
+  branchRelations: {
+    score: number;
+    liuHe: string[];
+    liuChong: string[];
+  };
+
+  nayinMatch: {
+    score: number;
+    maleNaYin: string;
+    femaleNaYin: string;
+    relation: string;
+  };
+}
+
 // === Mei Hua Yi Shu (梅花易数) Types ===
 
 export type TrigramName = '乾' | '兑' | '离' | '震' | '巽' | '坎' | '艮' | '坤';

@@ -27,12 +27,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         labelKey: 'workspace.sidebar.baziDaily',
         href: '/workspace/bazi-daily',
-        disabled: true,
       },
       {
         labelKey: 'workspace.sidebar.baziMarriage',
         href: '/workspace/bazi-marriage',
-        disabled: true,
       },
       {
         labelKey: 'workspace.sidebar.baziBusiness',

@@ -4,14 +4,14 @@ import Link from 'next/link';
 export default function HomePage() {
   const t = useTranslations();
 
-  const features = [
+  const features: { key: string; href: string; emoji: string; disabled?: boolean }[] = [
     {
       key: 'baziCalculate',
       href: '/workspace/bazi-calculate',
       emoji: '🏯',
     },
-    { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅', disabled: true },
-    { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑', disabled: true },
+    { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅' },
+    { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑' },
     { key: 'meihua', href: '/workspace/meihua/daily-decision', emoji: '🌸' },
     { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰' },
     { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐' },
