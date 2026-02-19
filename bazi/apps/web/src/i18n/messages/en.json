@@ -31,7 +31,11 @@
       "liuyao": "Six Lines",
       "liuyaoDesc": "I Ching six-line divination",
       "ziwei": "Purple Star",
-      "ziweiDesc": "Comprehensive twelve-palace chart analysis"
+      "ziweiDesc": "Comprehensive twelve-palace chart analysis",
+      "qimen": "Qi Men",
+      "qimenDesc": "Hourly rotating plate prediction and decision analysis",
+      "liuren": "Da Liu Ren",
+      "liurenDesc": "Grand Six Ren heaven-earth board prediction"
     }
   },
   "workspace": {
@@ -48,6 +52,8 @@
       "liuyao": "Six Lines",
       "otherSection": "Other",
       "ziwei": "Purple Star",
+      "qimen": "Qi Men",
+      "liuren": "Da Liu Ren",
       "huangli": "Almanac",
       "history": "History",
       "records": "Records"
@@ -182,6 +188,255 @@
     "errors": {
       "calculationFailed": "Divination failed, please try again",
       "invalidNumber": "Please enter a valid number"
+    },
+    "analysis": {
+      "title": "AI Hexagram Analysis",
+      "startAnalysis": "Start Analysis",
+      "analyzing": "Analyzing...",
+      "error": "Analysis failed, please try again",
+      "noApiKey": "AI analysis service is not configured",
+      "detailAnalysis": "In-depth Analysis",
+      "reAnalyze": "Re-analyze",
+      "retry": "Retry",
+      "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
+    },
+    "history": {
+      "title": "Divination History",
+      "empty": "No records yet",
+      "clearAll": "Clear all",
+      "remove": "Remove"
+    }
+  },
+  "ziwei": {
+    "title": "Purple Star Astrology",
+    "subtitle": "Comprehensive twelve-palace chart analysis",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Enter name (optional)",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "birthDate": "Birth Date",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "birthTime": "Birth Hour",
+      "hour": "Hour",
+      "advancedOptions": "Advanced Options",
+      "useTrueSolarTime": "Use True Solar Time",
+      "birthCity": "Birth City",
+      "cityPlaceholder": "Search city by name or pinyin",
+      "cityNoResults": "No matching city found",
+      "longitude": "Birth Longitude",
+      "longitudePlaceholder": "e.g. 116.4 (Beijing)",
+      "startCalculation": "Generate Chart"
+    },
+    "result": {
+      "chart": "Chart",
+      "wuxingJu": "Five Element Bureau",
+      "mingPalace": "Destiny Palace",
+      "shenPalace": "Body Palace",
+      "mingZhu": "Destiny Star",
+      "shenZhu": "Body Star",
+      "mainStars": "Main Stars",
+      "auxStars": "Auxiliary Stars",
+      "decadeLuck": "Decade Luck",
+      "lunarInfo": "Lunar Info",
+      "brightness": "Brightness",
+      "siHua": "Four Transformations"
+    },
+    "errors": {
+      "calculationFailed": "Chart calculation failed. Please try again.",
+      "invalidDate": "Invalid birth date. Please check your input."
+    },
+    "analysis": {
+      "title": "AI Chart Analysis",
+      "startAnalysis": "Start Analysis",
+      "analyzing": "Analyzing...",
+      "error": "Analysis failed, please try again",
+      "noApiKey": "AI analysis service is not configured",
+      "detailAnalysis": "In-depth Analysis",
+      "reAnalyze": "Re-analyze",
+      "retry": "Retry",
+      "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
+    },
+    "history": {
+      "title": "Chart History",
+      "empty": "No records yet",
+      "clearAll": "Clear all",
+      "remove": "Remove"
+    }
+  },
+  "qimen": {
+    "title": "Qi Men Dun Jia",
+    "subtitle": "Hourly Yang-Plate Rotating Qi Men prediction and decision analysis",
+    "form": {
+      "dateTime": "Chart Time",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "hour": "Hour",
+      "minute": "Minute",
+      "question": "Your Question",
+      "questionPlaceholder": "Enter what you want to predict (optional)",
+      "useCurrentTime": "Use current time",
+      "advancedOptions": "Advanced Options",
+      "useTrueSolarTime": "Use True Solar Time",
+      "birthCity": "Location",
+      "cityPlaceholder": "Search city by name or pinyin",
+      "cityNoResults": "No matching city found",
+      "longitude": "Longitude",
+      "longitudePlaceholder": "e.g. 116.4 (Beijing)",
+      "latitude": "Latitude",
+      "latitudePlaceholder": "e.g. 39.9 (Beijing)",
+      "southernHemisphereNote": "Negative latitude (southern hemisphere) reverses yin/yang dun and swaps N/S directions",
+      "startCalculation": "Generate Chart"
+    },
+    "result": {
+      "board": "Qi Men Board",
+      "dunType": "Dun Type",
+      "yuan": "Yuan",
+      "jieQi": "Solar Term",
+      "zhiFu": "Duty Star",
+      "zhiShi": "Duty Gate",
+      "xunShou": "Xun Head",
+      "xunKong": "Void",
+      "dayGanZhi": "Day GanZhi",
+      "hourGanZhi": "Hour GanZhi",
+      "heavenStem": "Heaven Plate",
+      "earthStem": "Earth Plate",
+      "star": "Nine Stars",
+      "gate": "Eight Gates",
+      "deity": "Eight Deities",
+      "pattern": "Patterns"
+    },
+    "errors": {
+      "calculationFailed": "Chart calculation failed. Please try again.",
+      "invalidDate": "Invalid date. Please check your input."
+    },
+    "analysis": {
+      "title": "AI Qi Men Analysis",
+      "startAnalysis": "Start Analysis",
+      "analyzing": "Analyzing...",
+      "error": "Analysis failed, please try again",
+      "noApiKey": "AI analysis service is not configured",
+      "detailAnalysis": "In-depth Analysis",
+      "reAnalyze": "Re-analyze",
+      "retry": "Retry",
+      "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
+    },
+    "history": {
+      "title": "Chart History",
+      "empty": "No records yet",
+      "clearAll": "Clear all",
+      "remove": "Remove"
+    }
+  },
+  "liuren": {
+    "title": "Da Liu Ren",
+    "subtitle": "Grand Six Ren · Heaven-Earth Board Prediction",
+    "form": {
+      "dateTime": "Divination Time",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "hour": "Hour",
+      "minute": "Min",
+      "question": "Your Question",
+      "questionPlaceholder": "Enter what you want to divine about (optional)",
+      "useCurrentTime": "Use current time",
+      "advancedOptions": "Advanced Options",
+      "useTrueSolarTime": "Use True Solar Time",
+      "city": "Location",
+      "cityPlaceholder": "Search city by name or pinyin",
+      "cityNoResults": "No matching city found",
+      "longitude": "Longitude",
+      "longitudePlaceholder": "e.g. 116.4 (Beijing)",
+      "startCalculation": "Cast Lesson"
+    },
+    "result": {
+      "board": "Heaven-Earth Board",
+      "lessons": "Four Lessons",
+      "transmission": "Three Transmissions",
+      "initial": "Initial",
+      "middle": "Middle",
+      "final": "Final",
+      "method": "Method",
+      "monthJiang": "Month General",
+      "dayGanZhi": "Day GanZhi",
+      "hourGanZhi": "Hour GanZhi",
+      "xunKong": "Void",
+      "heaven": "Heaven",
+      "earth": "Earth",
+      "general": "General",
+      "lesson": "Lesson",
+      "top": "Top",
+      "bottom": "Bottom"
+    },
+    "errors": {
+      "calculationFailed": "Calculation failed. Please try again."
+    },
+    "analysis": {
+      "title": "AI Liu Ren Analysis",
+      "startAnalysis": "Start Analysis",
+      "analyzing": "Analyzing...",
+      "error": "Analysis failed, please try again",
+      "noApiKey": "AI analysis service is not configured",
+      "detailAnalysis": "In-depth Analysis",
+      "reAnalyze": "Re-analyze",
+      "retry": "Retry",
+      "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
+    },
+    "history": {
+      "title": "Lesson History",
+      "empty": "No records yet",
+      "clearAll": "Clear all",
+      "remove": "Remove"
+    }
+  },
+  "liuyao": {
+    "title": "Six Lines Divination",
+    "subtitle": "Na Jia Method · I Ching Six-Line Prediction",
+    "form": {
+      "dateTime": "Divination Time",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "hour": "Hour",
+      "minute": "Min",
+      "question": "Your Question",
+      "questionPlaceholder": "Enter what you want to divine about (optional)",
+      "useCurrentTime": "Use current time",
+      "method": "Casting Method",
+      "methodRandom": "Random Cast",
+      "methodManual": "Manual Input",
+      "manualHint": "Select from line 1 to line 6: Old Yin(6)=moving yin, Young Yang(7)=static yang, Young Yin(8)=static yin, Old Yang(9)=moving yang",
+      "startCalculation": "Cast Hexagram"
+    },
+    "result": {
+      "originalHex": "Original",
+      "changedHex": "Changed",
+      "palace": "Palace",
+      "palaceElement": "Palace Element",
+      "shiYao": "Shi",
+      "yingYao": "Ying",
+      "movingLines": "Moving Lines",
+      "noMovingLines": "No moving lines",
+      "spirit": "Spirit",
+      "relation": "Relation",
+      "stemBranch": "Stem-Branch",
+      "element": "Element",
+      "xunKong": "Void",
+      "dayGanZhi": "Day GanZhi",
+      "monthBranch": "Month Branch",
+      "hiddenGods": "Hidden Gods",
+      "noHiddenGods": "All six relations present",
+      "yang": "▅▅▅▅▅",
+      "yin": "▅▅ ▅▅",
+      "moving": "○"
+    },
+    "errors": {
+      "calculationFailed": "Divination failed. Please try again."
     },
     "analysis": {
       "title": "AI Hexagram Analysis",

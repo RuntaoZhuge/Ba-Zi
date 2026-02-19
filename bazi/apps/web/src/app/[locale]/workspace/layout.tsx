@@ -45,13 +45,15 @@ const NAV_SECTIONS: NavSection[] = [
     titleKey: 'workspace.sidebar.divinationSection',
     items: [
       { labelKey: 'workspace.sidebar.meihua', href: '/workspace/meihua/daily-decision' },
-      { labelKey: 'workspace.sidebar.liuyao', href: '/workspace/liuyao', disabled: true },
+      { labelKey: 'workspace.sidebar.liuyao', href: '/workspace/liuyao' },
     ],
   },
   {
     titleKey: 'workspace.sidebar.otherSection',
     items: [
-      { labelKey: 'workspace.sidebar.ziwei', href: '/workspace/ziwei-doushu', disabled: true },
+      { labelKey: 'workspace.sidebar.ziwei', href: '/workspace/ziwei-doushu' },
+      { labelKey: 'workspace.sidebar.qimen', href: '/workspace/qimen' },
+      { labelKey: 'workspace.sidebar.liuren', href: '/workspace/liuren' },
       { labelKey: 'workspace.sidebar.huangli', href: '/workspace/huangli', disabled: true },
     ],
   },

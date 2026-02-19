@@ -31,7 +31,11 @@
       "liuyao": "六爻占卜",
       "liuyaoDesc": "周易六爻预测",
       "ziwei": "紫微斗数",
-      "ziweiDesc": "十二宫位全面命盘分析"
+      "ziweiDesc": "十二宫位全面命盘分析",
+      "qimen": "奇门遁甲",
+      "qimenDesc": "时家转盘奇门预测决策",
+      "liuren": "大六壬",
+      "liurenDesc": "三式之首·天地盘四课三传"
     }
   },
   "workspace": {
@@ -48,6 +52,8 @@
       "liuyao": "六爻",
       "otherSection": "其他功能",
       "ziwei": "紫微斗数",
+      "qimen": "奇门遁甲",
+      "liuren": "大六壬",
       "huangli": "黄历",
       "history": "分析历史",
       "records": "个人档案"
@@ -182,6 +188,255 @@
     "errors": {
       "calculationFailed": "起卦出错，请重试",
       "invalidNumber": "请输入有效的数字"
+    },
+    "analysis": {
+      "title": "AI 卦象分析",
+      "startAnalysis": "开始分析",
+      "analyzing": "分析中...",
+      "error": "分析失败，请重试",
+      "noApiKey": "AI 分析服务暂未配置",
+      "detailAnalysis": "深入分析",
+      "reAnalyze": "重新分析",
+      "retry": "重试",
+      "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
+    },
+    "history": {
+      "title": "占卦记录",
+      "empty": "暂无占卦记录",
+      "clearAll": "清空",
+      "remove": "删除"
+    }
+  },
+  "ziwei": {
+    "title": "紫微斗数",
+    "subtitle": "十二宫位全面命盘分析",
+    "form": {
+      "name": "姓名",
+      "namePlaceholder": "请输入姓名（选填）",
+      "gender": "性别",
+      "male": "男",
+      "female": "女",
+      "birthDate": "出生日期",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "birthTime": "出生时辰",
+      "hour": "时",
+      "advancedOptions": "高级选项",
+      "useTrueSolarTime": "使用真太阳时",
+      "birthCity": "出生城市",
+      "cityPlaceholder": "输入城市名或拼音搜索",
+      "cityNoResults": "未找到匹配城市",
+      "longitude": "出生地经度",
+      "longitudePlaceholder": "如：116.4（北京）",
+      "startCalculation": "开始排盘"
+    },
+    "result": {
+      "chart": "命盘",
+      "wuxingJu": "五行局",
+      "mingPalace": "命宫",
+      "shenPalace": "身宫",
+      "mingZhu": "命主",
+      "shenZhu": "身主",
+      "mainStars": "主星",
+      "auxStars": "辅星",
+      "decadeLuck": "大运",
+      "lunarInfo": "农历信息",
+      "brightness": "亮度",
+      "siHua": "四化"
+    },
+    "errors": {
+      "calculationFailed": "排盘出错，请重试",
+      "invalidDate": "无效的出生日期，请检查输入"
+    },
+    "analysis": {
+      "title": "AI 命盘分析",
+      "startAnalysis": "开始分析",
+      "analyzing": "分析中...",
+      "error": "分析失败，请重试",
+      "noApiKey": "AI 分析服务暂未配置",
+      "detailAnalysis": "深入分析",
+      "reAnalyze": "重新分析",
+      "retry": "重试",
+      "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
+    },
+    "history": {
+      "title": "排盘记录",
+      "empty": "暂无排盘记录",
+      "clearAll": "清空",
+      "remove": "删除"
+    }
+  },
+  "qimen": {
+    "title": "奇门遁甲",
+    "subtitle": "时家阳盘转盘奇门预测与决策分析",
+    "form": {
+      "dateTime": "起局时间",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "hour": "时",
+      "minute": "分",
+      "question": "所问之事",
+      "questionPlaceholder": "请输入您想预测的事情（选填）",
+      "useCurrentTime": "使用当前时间",
+      "advancedOptions": "高级选项",
+      "useTrueSolarTime": "使用真太阳时",
+      "birthCity": "所在城市",
+      "cityPlaceholder": "输入城市名或拼音搜索",
+      "cityNoResults": "未找到匹配城市",
+      "longitude": "经度",
+      "longitudePlaceholder": "如：116.4（北京）",
+      "latitude": "纬度",
+      "latitudePlaceholder": "如：39.9（北京）",
+      "southernHemisphereNote": "南半球纬度为负值，系统将自动反转阴阳遁并互换南北方位",
+      "startCalculation": "起局"
+    },
+    "result": {
+      "board": "奇门盘",
+      "dunType": "遁局",
+      "yuan": "元",
+      "jieQi": "节气",
+      "zhiFu": "值符",
+      "zhiShi": "值使",
+      "xunShou": "旬首",
+      "xunKong": "旬空",
+      "dayGanZhi": "日干支",
+      "hourGanZhi": "时干支",
+      "heavenStem": "天盘",
+      "earthStem": "地盘",
+      "star": "九星",
+      "gate": "八门",
+      "deity": "八神",
+      "pattern": "格局"
+    },
+    "errors": {
+      "calculationFailed": "起局出错，请重试",
+      "invalidDate": "无效的日期，请检查输入"
+    },
+    "analysis": {
+      "title": "AI 奇门分析",
+      "startAnalysis": "开始分析",
+      "analyzing": "分析中...",
+      "error": "分析失败，请重试",
+      "noApiKey": "AI 分析服务暂未配置",
+      "detailAnalysis": "深入分析",
+      "reAnalyze": "重新分析",
+      "retry": "重试",
+      "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
+    },
+    "history": {
+      "title": "起局记录",
+      "empty": "暂无起局记录",
+      "clearAll": "清空",
+      "remove": "删除"
+    }
+  },
+  "liuren": {
+    "title": "大六壬",
+    "subtitle": "三式之首·天地盘四课三传预测",
+    "form": {
+      "dateTime": "占课时间",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "hour": "时",
+      "minute": "分",
+      "question": "所问之事",
+      "questionPlaceholder": "请输入您想占问的事情（选填）",
+      "useCurrentTime": "使用当前时间",
+      "advancedOptions": "高级选项",
+      "useTrueSolarTime": "使用真太阳时",
+      "city": "所在城市",
+      "cityPlaceholder": "输入城市名或拼音搜索",
+      "cityNoResults": "未找到匹配城市",
+      "longitude": "经度",
+      "longitudePlaceholder": "如：116.4（北京）",
+      "startCalculation": "起课"
+    },
+    "result": {
+      "board": "天地盘",
+      "lessons": "四课",
+      "transmission": "三传",
+      "initial": "初传",
+      "middle": "中传",
+      "final": "末传",
+      "method": "取传法",
+      "monthJiang": "月将",
+      "dayGanZhi": "日干支",
+      "hourGanZhi": "时干支",
+      "xunKong": "旬空",
+      "heaven": "天",
+      "earth": "地",
+      "general": "天将",
+      "lesson": "课",
+      "top": "上",
+      "bottom": "下"
+    },
+    "errors": {
+      "calculationFailed": "起课出错，请重试"
+    },
+    "analysis": {
+      "title": "AI 六壬分析",
+      "startAnalysis": "开始分析",
+      "analyzing": "分析中...",
+      "error": "分析失败，请重试",
+      "noApiKey": "AI 分析服务暂未配置",
+      "detailAnalysis": "深入分析",
+      "reAnalyze": "重新分析",
+      "retry": "重试",
+      "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
+    },
+    "history": {
+      "title": "起课记录",
+      "empty": "暂无起课记录",
+      "clearAll": "清空",
+      "remove": "删除"
+    }
+  },
+  "liuyao": {
+    "title": "六爻占卜",
+    "subtitle": "纳甲装卦法·周易六爻预测",
+    "form": {
+      "dateTime": "占卜时间",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "hour": "时",
+      "minute": "分",
+      "question": "所问之事",
+      "questionPlaceholder": "请输入您想占问的事情（选填）",
+      "useCurrentTime": "使用当前时间",
+      "method": "起卦方式",
+      "methodRandom": "摇卦（随机）",
+      "methodManual": "手动输入",
+      "manualHint": "从初爻到六爻依次选择：老阴(6)=动阴, 少阳(7)=静阳, 少阴(8)=静阴, 老阳(9)=动阳",
+      "startCalculation": "起卦"
+    },
+    "result": {
+      "originalHex": "本卦",
+      "changedHex": "变卦",
+      "palace": "宫",
+      "palaceElement": "宫五行",
+      "shiYao": "世",
+      "yingYao": "应",
+      "movingLines": "动爻",
+      "noMovingLines": "无动爻",
+      "spirit": "六神",
+      "relation": "六亲",
+      "stemBranch": "干支",
+      "element": "五行",
+      "xunKong": "旬空",
+      "dayGanZhi": "日干支",
+      "monthBranch": "月建",
+      "hiddenGods": "伏神",
+      "noHiddenGods": "六亲齐全，无伏神",
+      "yang": "▅▅▅▅▅",
+      "yin": "▅▅ ▅▅",
+      "moving": "○"
+    },
+    "errors": {
+      "calculationFailed": "起卦出错，请重试"
     },
     "analysis": {
       "title": "AI 卦象分析",

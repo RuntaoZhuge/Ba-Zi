@@ -13,8 +13,10 @@ export default function HomePage() {
     { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅', disabled: true },
     { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑', disabled: true },
     { key: 'meihua', href: '/workspace/meihua/daily-decision', emoji: '🌸' },
-    { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰', disabled: true },
-    { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐', disabled: true },
+    { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰' },
+    { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐' },
+    { key: 'qimen', href: '/workspace/qimen', emoji: '🔮' },
+    { key: 'liuren', href: '/workspace/liuren', emoji: '🌀' },
   ];
 
   return (
