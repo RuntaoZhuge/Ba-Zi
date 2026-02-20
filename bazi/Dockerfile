@@ -14,7 +14,7 @@ COPY package.json package-lock.json* ./
 COPY packages/domain/package.json ./packages/domain/
 COPY apps/web/package.json ./apps/web/
 
-# Install dependencies
+# Install dependencies (npm workspaces hoists all dependencies to root node_modules)
 RUN npm ci --prefer-offline --no-audit
 
 # ============================================
@@ -23,10 +23,8 @@ RUN npm ci --prefer-offline --no-audit
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy dependencies
+# Copy dependencies (all in root node_modules due to workspace hoisting)
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/domain/node_modules ./packages/domain/node_modules
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 
 # Copy source code
 COPY . .
