@@ -10,13 +10,14 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/limit-rps: "100"
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/app-root: /zh
 spec:
   tls:
   - hosts:
-    - bazi.yourdomain.com
+    - bazi.ailurotech.com.au
     secretName: bazi-tls
   rules:
-  - host: bazi.yourdomain.com
+  - host: bazi.ailurotech.com.au
     http:
       paths:
       - path: /
@@ -25,4 +26,4 @@ spec:
           service:
             name: bazi-web
             port:
-              number: 80
+              number: 3000
