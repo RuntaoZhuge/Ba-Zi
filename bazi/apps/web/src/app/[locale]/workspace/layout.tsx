@@ -35,7 +35,6 @@ const NAV_SECTIONS: NavSection[] = [
       {
         labelKey: 'workspace.sidebar.baziBusiness',
         href: '/workspace/bazi-business',
-        disabled: true,
       },
     ],
   },

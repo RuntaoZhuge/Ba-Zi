@@ -10,6 +10,7 @@ export { extractAnalysisContext } from './bazi/analysis.js';
 export type { AnalysisContext } from './bazi/analysis.js';
 export { calculateDailyFortune } from './bazi/daily-fortune.js';
 export { analyzeMarriage } from './bazi/marriage.js';
+export { analyzeBusinessCooperation } from './bazi/business-cooperation.js';
 
 // Meihua (梅花易数)
 export { calculateMeihua } from './meihua/calculator.js';
@@ -74,6 +75,7 @@ export type {
   BaZiResult,
   DailyFortuneContext,
   MarriageCompatibility,
+  BusinessCompatibility,
   CalculationStep,
 
   // Meihua types

@@ -12,6 +12,7 @@ export default function HomePage() {
     },
     { key: 'baziDaily', href: '/workspace/bazi-daily', emoji: '📅' },
     { key: 'baziMarriage', href: '/workspace/bazi-marriage', emoji: '💑' },
+    { key: 'baziBusiness', href: '/workspace/bazi-business', emoji: '🤝' },
     { key: 'meihua', href: '/workspace/meihua/daily-decision', emoji: '🌸' },
     { key: 'liuyao', href: '/workspace/liuyao', emoji: '☰' },
     { key: 'ziwei', href: '/workspace/ziwei-doushu', emoji: '⭐' },

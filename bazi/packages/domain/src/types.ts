@@ -316,6 +316,52 @@ export interface MarriageCompatibility {
   };
 }
 
+// === Business Cooperation (商业合作) Types ===
+
+export interface BusinessCompatibility {
+  /** Overall score 0-100 */
+  overallScore: number;
+
+  dayMasterRelation: {
+    person1Stem: HeavenlyStem;
+    person2Stem: HeavenlyStem;
+    /** e.g. "甲己合化土", null if no combination */
+    combination: string | null;
+    /** Person1 day master's ten-god relation to person2 */
+    shiShenPerson1ToPerson2: string;
+    /** Person2 day master's ten-god relation to person1 */
+    shiShenPerson2ToPerson1: string;
+    score: number;
+  };
+
+  wuxingBalance: {
+    score: number;
+    complementary: WuXing[];
+    conflicting: WuXing[];
+  };
+
+  yongShenMatch: {
+    score: number;
+    person1YongShen: WuXing;
+    person2YongShen: WuXing;
+    person1XiShen: WuXing;
+    person2XiShen: WuXing;
+  };
+
+  branchRelations: {
+    score: number;
+    liuHe: string[];
+    liuChong: string[];
+  };
+
+  nayinMatch: {
+    score: number;
+    person1NaYin: string;
+    person2NaYin: string;
+    relation: string;
+  };
+}
+
 // === Mei Hua Yi Shu (梅花易数) Types ===
 
 export type TrigramName = '乾' | '兑' | '离' | '震' | '巽' | '坎' | '艮' | '坤';
