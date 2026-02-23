@@ -6,6 +6,11 @@ export default function HomePage() {
 
   const features: { key: string; href: string; emoji: string; disabled?: boolean }[] = [
     {
+      key: 'master',
+      href: '/workspace/master',
+      emoji: '🧙',
+    },
+    {
       key: 'baziCalculate',
       href: '/workspace/bazi-calculate',
       emoji: '🏯',
