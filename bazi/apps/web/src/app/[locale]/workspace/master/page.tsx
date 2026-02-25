@@ -181,9 +181,12 @@ function ProfileForm({
 
   if (collapsed && profile) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-4">
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-600">
+      <div className="rounded-xl border border-gray-200 bg-white">
+        <button
+          onClick={onToggle}
+          className="flex w-full items-center justify-between p-4 text-left hover:bg-gray-50 transition"
+        >
+          <div className="flex-1 text-sm text-gray-600">
             <span className="font-medium text-gray-900">
               {t('master.profileSaved')}
             </span>
@@ -197,22 +200,42 @@ function ProfileForm({
               </span>
             )}
           </div>
-          <button
-            onClick={onToggle}
-            className="text-sm text-gray-500 hover:text-gray-700"
-          >
-            {t('master.editProfile')}
-          </button>
-        </div>
+          <div className="ml-4 flex items-center gap-2">
+            <span className="text-xs text-gray-500">{t('master.editProfile')}</span>
+            <svg
+              className="h-4 w-4 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
       </div>
     );
   }
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6">
-      <h3 className="mb-4 text-sm font-semibold text-gray-900">
-        {t('master.profileTitle')}
-      </h3>
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-gray-900">
+          {t('master.profileTitle')}
+        </h3>
+        {profile && (
+          <button
+            onClick={onToggle}
+            className="text-xs text-gray-500 hover:text-gray-700"
+          >
+            {t('common.collapse')}
+          </button>
+        )}
+      </div>
       <p className="mb-4 text-xs text-gray-500">{t('master.profileHint')}</p>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -443,12 +466,25 @@ function ProfileForm({
         )}
       </div>
 
-      <button
-        onClick={handleSave}
-        className="mt-4 rounded-lg bg-gray-900 px-6 py-2 text-sm text-white hover:bg-gray-800"
-      >
-        {t('master.saveProfile')}
-      </button>
+      <div className="mt-4 flex gap-2">
+        <button
+          onClick={() => {
+            handleSave();
+            onToggle(); // Auto-collapse after save
+          }}
+          className="flex-1 rounded-lg bg-gray-900 px-6 py-2 text-sm text-white hover:bg-gray-800"
+        >
+          {t('master.saveProfile')}
+        </button>
+        {profile && (
+          <button
+            onClick={onToggle}
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+          >
+            {t('common.cancel')}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -13,7 +13,9 @@
     "unknown": "Unknown",
     "calculate": "Calculate",
     "reset": "Reset",
-    "loading": "Calculating..."
+    "loading": "Calculating...",
+    "collapse": "Collapse",
+    "cancel": "Cancel"
   },
   "home": {
     "title": "AI-Powered BaZi Analysis",
