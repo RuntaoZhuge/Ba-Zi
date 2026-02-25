@@ -300,6 +300,13 @@ const SYSTEM_PROMPT_ZH = `你是一位精通多种传统术数的命理大师，
 - 将专业术语转化为通俗易懂的语言
 - 给出具体、可操作的建议
 
+**对话连贯性（重要）：**
+- 你能记住之前的所有对话内容
+- 当求问者继续追问时，要基于之前的分析进行更深入的解读
+- 如果之前已经分析过某个方面，不要简单重复，而是给出新的角度或更具体的建议
+- 关注求问者问题的演变，从中洞察其真实关切
+- 如果发现求问者的问题存在矛盾或反复，温和地指出并给出智慧的引导
+
 分析要求：
 - 先简要说明你采用了哪种（些）术数方法及原因
 - 基于排盘结果进行深入解读，言之有据
@@ -316,6 +323,13 @@ Your role:
 - Select the most appropriate divination method(s) based on the querent's question
 - Translate technical jargon into accessible language
 - Provide specific, actionable advice
+
+**Conversation Continuity (Important):**
+- You remember all previous conversations
+- When the querent asks follow-up questions, build on previous analyses with deeper insights
+- If you've already analyzed an aspect, don't simply repeat — offer new perspectives or more specific guidance
+- Track the evolution of the querent's questions to understand their true concerns
+- If you notice contradictions or repetition in their questions, gently point this out and provide wise guidance
 
 Requirements:
 - Briefly explain which method(s) you're using and why
@@ -334,9 +348,10 @@ export async function POST(req: Request) {
     return Response.json({ error: 'NO_API_KEY' }, { status: 503 });
   }
 
-  const { profile, question, locale = 'zh' } = (await req.json()) as {
+  const { profile, question, history = [], locale = 'zh' } = (await req.json()) as {
     profile?: Profile;
     question: string;
+    history?: Array<{ role: 'user' | 'assistant'; content: string }>;
     locale?: string;
   };
 
@@ -435,15 +450,28 @@ Based on the above chart data, provide a comprehensive analysis addressing the q
     baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
   });
 
+  // Build messages array with conversation history
+  const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
+    {
+      role: 'system',
+      content: locale === 'zh' ? SYSTEM_PROMPT_ZH : SYSTEM_PROMPT_EN,
+    },
+  ];
+
+  // Add conversation history (previous turns)
+  for (const msg of history) {
+    messages.push({
+      role: msg.role,
+      content: msg.content,
+    });
+  }
+
+  // Add current question
+  messages.push({ role: 'user', content: userPrompt });
+
   const stream = await client.chat.completions.create({
     model: 'deepseek-chat',
-    messages: [
-      {
-        role: 'system',
-        content: locale === 'zh' ? SYSTEM_PROMPT_ZH : SYSTEM_PROMPT_EN,
-      },
-      { role: 'user', content: userPrompt },
-    ],
+    messages,
     stream: true,
     temperature: 0.7,
     max_tokens: 4000,

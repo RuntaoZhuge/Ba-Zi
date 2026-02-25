@@ -629,12 +629,21 @@ export default function MasterAgentPage() {
     setMessages((prev) => [...prev, userMsg, assistantMsg]);
 
     try {
+      // Build conversation history (exclude current pending messages)
+      const history = messages
+        .filter((m) => m.status === 'done')
+        .map((m) => ({
+          role: m.role,
+          content: m.content,
+        }));
+
       const response = await fetch('/api/agent/consult', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           profile: profile ?? undefined,
           question,
+          history, // Send conversation history
           locale: 'zh', // TODO: detect from next-intl
         }),
       });
