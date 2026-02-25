@@ -497,12 +497,13 @@ Based on the above chart data, provide a comprehensive analysis addressing the q
   // Add current question
   messages.push({ role: 'user', content: userPrompt });
 
+  // Use reasoning model for better quality responses
   const stream = await client.chat.completions.create({
-    model: 'deepseek-chat',
+    model: 'deepseek-reasoner',
     messages,
     stream: true,
     temperature: 0.7,
-    max_tokens: 4000,
+    max_tokens: 8000,
   });
 
   const encoder = new TextEncoder();
