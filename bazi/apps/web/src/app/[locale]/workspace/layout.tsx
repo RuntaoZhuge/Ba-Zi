@@ -99,6 +99,20 @@ export default function WorkspaceLayout({
           </Link>
         </div>
         <nav className="p-4">
+          {/* Master Agent — highlighted top link */}
+          <div className="mb-4">
+            <Link
+              href="/workspace/master"
+              className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                pathname.endsWith('/workspace/master')
+                  ? 'bg-gray-900 text-white'
+                  : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
+              }`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              {t('workspace.sidebar.master')}
+            </Link>
+          </div>
           {NAV_SECTIONS.map((section) => (
             <div key={section.titleKey} className="mb-6">
               <h3 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">

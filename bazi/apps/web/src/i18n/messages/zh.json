@@ -37,7 +37,9 @@
       "qimen": "奇门遁甲",
       "qimenDesc": "时家转盘奇门预测决策",
       "liuren": "大六壬",
-      "liurenDesc": "三式之首·天地盘四课三传"
+      "liurenDesc": "三式之首·天地盘四课三传",
+      "master": "大师问答",
+      "masterDesc": "直接提问，AI大师自动选择最合适的术数方法"
     }
   },
   "workspace": {
@@ -57,6 +59,7 @@
       "qimen": "奇门遁甲",
       "liuren": "大六壬",
       "huangli": "黄历",
+      "master": "大师问答",
       "history": "分析历史",
       "records": "个人档案"
     }
@@ -605,6 +608,26 @@
       "clearAll": "清空",
       "remove": "删除"
     }
+  },
+  "master": {
+    "title": "大师问答",
+    "subtitle": "直接提问，大师为您自动选择最合适的术数方法进行分析",
+    "profileTitle": "您的出生信息",
+    "profileHint": "填写出生信息后可解锁八字命理分析（不填也可使用梅花、奇门等方法）",
+    "profileSaved": "已保存出生信息",
+    "editProfile": "修改",
+    "saveProfile": "保存信息",
+    "emptyTitle": "有什么想问的？",
+    "emptyHint": "您可以直接提问，明德先生会自动选择最合适的术数方法为您解析。填写出生信息后可获得更精准的八字命理分析。",
+    "example1": "我最近的事业运势如何？",
+    "example2": "今天适合签合同吗？",
+    "example3": "这个项目能成功吗？",
+    "example4": "我该往哪个方向发展？",
+    "inputPlaceholder": "请输入您的问题...",
+    "send": "发送",
+    "error": "分析失败，请重试",
+    "noApiKey": "AI 分析服务暂未配置",
+    "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
   },
   "footer": {
     "description": "人工智能与东方传统智慧的完美结合",

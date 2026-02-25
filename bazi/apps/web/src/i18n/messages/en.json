@@ -37,7 +37,9 @@
       "qimen": "Qi Men",
       "qimenDesc": "Hourly rotating plate prediction and decision analysis",
       "liuren": "Da Liu Ren",
-      "liurenDesc": "Grand Six Ren heaven-earth board prediction"
+      "liurenDesc": "Grand Six Ren heaven-earth board prediction",
+      "master": "Master Consult",
+      "masterDesc": "Ask directly — AI master auto-selects the best divination method"
     }
   },
   "workspace": {
@@ -57,6 +59,7 @@
       "qimen": "Qi Men",
       "liuren": "Da Liu Ren",
       "huangli": "Almanac",
+      "master": "Master Consult",
       "history": "History",
       "records": "Records"
     }
@@ -605,6 +608,26 @@
       "clearAll": "Clear all",
       "remove": "Remove"
     }
+  },
+  "master": {
+    "title": "Master Consult",
+    "subtitle": "Ask your question directly — the master will select the best divination method for you",
+    "profileTitle": "Your Birth Information",
+    "profileHint": "Providing birth info unlocks BaZi analysis (Meihua, QiMen and other methods work without it)",
+    "profileSaved": "Birth info saved",
+    "editProfile": "Edit",
+    "saveProfile": "Save Info",
+    "emptyTitle": "What would you like to ask?",
+    "emptyHint": "Ask any question and Master Mingde will automatically select the most suitable divination method. Providing birth info enables more precise BaZi analysis.",
+    "example1": "How is my career fortune recently?",
+    "example2": "Is today a good day to sign a contract?",
+    "example3": "Will this project succeed?",
+    "example4": "Which direction should I develop in?",
+    "inputPlaceholder": "Enter your question...",
+    "send": "Send",
+    "error": "Analysis failed, please try again",
+    "noApiKey": "AI analysis service is not configured",
+    "disclaimer": "AI analysis is for reference only and does not constitute professional advice"
   },
   "footer": {
     "description": "The perfect fusion of AI and Eastern traditional wisdom",
