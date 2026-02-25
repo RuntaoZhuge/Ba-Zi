@@ -162,6 +162,22 @@ function ProfileForm({
     profile?.latitude?.toString() ?? '',
   );
 
+  // Sync form state when profile changes (e.g., loaded from localStorage)
+  useEffect(() => {
+    if (profile) {
+      setYear(profile.year);
+      setMonth(profile.month);
+      setDay(profile.day);
+      setHour(profile.hour);
+      setMinute(profile.minute);
+      setGender(profile.gender);
+      setCalendarType(profile.calendarType);
+      setUseTrueSolarTime(profile.useTrueSolarTime ?? false);
+      setLongitude(profile.longitude?.toString() ?? '');
+      setLatitude(profile.latitude?.toString() ?? '');
+    }
+  }, [profile]);
+
   const handleSave = () => {
     const p: Profile = {
       year,
