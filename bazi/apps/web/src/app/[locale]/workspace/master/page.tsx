@@ -2,6 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { CitySelector } from '@/components/bazi/city-selector';
+import type { City } from '@/data/cities';
 
 // === Types ===
 
@@ -13,6 +15,9 @@ interface Profile {
   minute: number;
   gender: 'male' | 'female';
   calendarType: 'solar' | 'lunar';
+  useTrueSolarTime?: boolean;
+  longitude?: number;
+  latitude?: number;
 }
 
 interface MethodBadge {
@@ -145,9 +150,31 @@ function ProfileForm({
   const [calendarType, setCalendarType] = useState<'solar' | 'lunar'>(
     profile?.calendarType ?? 'solar',
   );
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [useTrueSolarTime, setUseTrueSolarTime] = useState(
+    profile?.useTrueSolarTime ?? false,
+  );
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [longitude, setLongitude] = useState(
+    profile?.longitude?.toString() ?? '',
+  );
+  const [latitude, setLatitude] = useState(
+    profile?.latitude?.toString() ?? '',
+  );
 
   const handleSave = () => {
-    const p: Profile = { year, month, day, hour, minute, gender, calendarType };
+    const p: Profile = {
+      year,
+      month,
+      day,
+      hour,
+      minute,
+      gender,
+      calendarType,
+      useTrueSolarTime: useTrueSolarTime && longitude ? true : undefined,
+      longitude: useTrueSolarTime && longitude ? parseFloat(longitude) : undefined,
+      latitude: latitude ? parseFloat(latitude) : undefined,
+    };
     saveProfile(p);
     onSave(p);
   };
@@ -164,6 +191,11 @@ function ProfileForm({
             {profile.year}/{profile.month}/{profile.day} {profile.hour}:
             {String(profile.minute).padStart(2, '0')}{' '}
             {t(`common.${profile.gender}`)}
+            {profile.useTrueSolarTime && (
+              <span className="ml-2 text-xs text-gray-500">
+                ({t('bazi.form.useTrueSolarTime')})
+              </span>
+            )}
           </div>
           <button
             onClick={onToggle}
@@ -305,6 +337,110 @@ function ProfileForm({
             max={59}
           />
         </div>
+      </div>
+
+      {/* Advanced Options */}
+      <div className="mt-4 rounded-lg border border-gray-200">
+        <button
+          type="button"
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+        >
+          <span>{t('bazi.form.advancedOptions')}</span>
+          <svg
+            className={`h-4 w-4 text-gray-400 transition-transform ${showAdvanced ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+
+        {showAdvanced && (
+          <div className="space-y-3 border-t border-gray-200 bg-gray-50 p-4">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="masterTrueSolarTime"
+                checked={useTrueSolarTime}
+                onChange={(e) => setUseTrueSolarTime(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <label htmlFor="masterTrueSolarTime" className="text-sm text-gray-700">
+                {t('bazi.form.useTrueSolarTime')}
+              </label>
+            </div>
+
+            {useTrueSolarTime && (
+              <>
+                <div>
+                  <label className="mb-1 block text-sm text-gray-700">
+                    {t('bazi.form.birthCity')}
+                  </label>
+                  <CitySelector
+                    value={selectedCity}
+                    onChange={(city) => {
+                      setSelectedCity(city);
+                      if (city) {
+                        setLongitude(String(city.longitude));
+                        setLatitude(String(city.latitude));
+                      }
+                    }}
+                    placeholder={t('bazi.form.cityPlaceholder')}
+                    noResultsText={t('bazi.form.cityNoResults')}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="mb-1 block text-sm text-gray-700">
+                      {t('bazi.form.longitude')}
+                    </label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="-180"
+                      max="180"
+                      value={longitude}
+                      onChange={(e) => {
+                        setLongitude(e.target.value);
+                        setSelectedCity(null);
+                      }}
+                      placeholder={t('bazi.form.longitudePlaceholder')}
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm text-gray-700">
+                      {t('bazi.form.latitude')}
+                    </label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="-90"
+                      max="90"
+                      value={latitude}
+                      onChange={(e) => {
+                        setLatitude(e.target.value);
+                        setSelectedCity(null);
+                      }}
+                      placeholder={t('bazi.form.latitudePlaceholder')}
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <p className="text-[11px] text-gray-400">
+                  {t('bazi.form.southernHemisphereNote')}
+                </p>
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       <button
