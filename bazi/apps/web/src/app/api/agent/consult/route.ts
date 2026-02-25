@@ -25,6 +25,9 @@ interface Profile {
   minute: number;
   gender: 'male' | 'female';
   calendarType: 'solar' | 'lunar';
+  useTrueSolarTime?: boolean;
+  longitude?: number;
+  latitude?: number;
 }
 
 type Method = 'bazi' | 'meihua' | 'qimen' | 'liuyao' | 'liuren';
@@ -108,6 +111,16 @@ function runBazi(profile: Profile, question: string): MethodResult | null {
     const fp = result.chart.fourPillars;
     const pillars = `${fp.year.stemBranch.ganZhi} ${fp.month.stemBranch.ganZhi} ${fp.day.stemBranch.ganZhi} ${fp.hour?.stemBranch.ganZhi ?? '(时辰未知)'}`;
 
+    // Determine hemisphere info
+    let locationInfo = '';
+    if (profile.latitude != null) {
+      const hemisphere = profile.latitude < 0 ? '南半球' : '北半球';
+      locationInfo = `出生地：${hemisphere}`;
+      if (profile.useTrueSolarTime && profile.longitude != null) {
+        locationInfo += `（已采用真太阳时修正）`;
+      }
+    }
+
     const context = [
       `【八字命盘】`,
       `四柱：${pillars}`,
@@ -124,6 +137,7 @@ function runBazi(profile: Profile, question: string): MethodResult | null {
         : '',
       `起运：${result.yun.startAge}岁`,
       `大运：${ctx.dayunSummary}`,
+      locationInfo,
     ]
       .filter(Boolean)
       .join('\n');
@@ -307,6 +321,13 @@ const SYSTEM_PROMPT_ZH = `你是一位精通多种传统术数的命理大师，
 - 关注求问者问题的演变，从中洞察其真实关切
 - 如果发现求问者的问题存在矛盾或反复，温和地指出并给出智慧的引导
 
+**主动提问（重要）：**
+- 如果信息不足以给出准确判断，要主动询问缺失的关键信息
+- 例如：没有出生地信息时，询问"您是在南半球还是北半球出生？这对命理判断有一定影响"
+- 例如：问题不够具体时，询问"您最关心的是哪方面？是事业、感情还是财运？"
+- 例如：时间模糊时，询问"您指的是今年内还是最近三个月？"
+- 主动提问要自然融入分析中，不要生硬
+
 分析要求：
 - 先简要说明你采用了哪种（些）术数方法及原因
 - 基于排盘结果进行深入解读，言之有据
@@ -330,6 +351,13 @@ Your role:
 - If you've already analyzed an aspect, don't simply repeat — offer new perspectives or more specific guidance
 - Track the evolution of the querent's questions to understand their true concerns
 - If you notice contradictions or repetition in their questions, gently point this out and provide wise guidance
+
+**Proactive Inquiry (Important):**
+- If information is insufficient for accurate judgment, proactively ask for missing key details
+- Example: Without birthplace, ask "Were you born in the southern or northern hemisphere? This affects destiny analysis"
+- Example: If question is vague, ask "Which aspect concerns you most? Career, relationships, or wealth?"
+- Example: If timing is unclear, ask "Do you mean this year or the next three months?"
+- Weave questions naturally into your analysis — don't be abrupt
 
 Requirements:
 - Briefly explain which method(s) you're using and why
