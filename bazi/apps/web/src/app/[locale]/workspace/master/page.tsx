@@ -307,7 +307,7 @@ function ProfileForm({
           <input
             type="number"
             value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
+            onChange={(e) => setYear(e.target.value === '' ? 0 : Number(e.target.value))}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             min={1900}
             max={2100}
@@ -322,7 +322,7 @@ function ProfileForm({
           <input
             type="number"
             value={month}
-            onChange={(e) => setMonth(Number(e.target.value))}
+            onChange={(e) => setMonth(e.target.value === '' ? 0 : Number(e.target.value))}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             min={1}
             max={12}
@@ -337,7 +337,7 @@ function ProfileForm({
           <input
             type="number"
             value={day}
-            onChange={(e) => setDay(Number(e.target.value))}
+            onChange={(e) => setDay(e.target.value === '' ? 0 : Number(e.target.value))}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             min={1}
             max={31}
@@ -355,7 +355,7 @@ function ProfileForm({
           <input
             type="number"
             value={hour}
-            onChange={(e) => setHour(Number(e.target.value))}
+            onChange={(e) => setHour(e.target.value === '' ? 0 : Number(e.target.value))}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             min={0}
             max={23}
@@ -370,7 +370,7 @@ function ProfileForm({
           <input
             type="number"
             value={minute}
-            onChange={(e) => setMinute(Number(e.target.value))}
+            onChange={(e) => setMinute(e.target.value === '' ? 0 : Number(e.target.value))}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
             min={0}
             max={59}
