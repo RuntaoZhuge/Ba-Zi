@@ -36,6 +36,7 @@ interface Message {
 // === Profile Storage ===
 
 const PROFILE_KEY = 'master-agent-profile';
+const WEB_SEARCH_KEY = 'master-agent-web-search';
 
 function loadProfile(): Profile | null {
   if (typeof window === 'undefined') return null;
@@ -49,6 +50,20 @@ function loadProfile(): Profile | null {
 
 function saveProfile(profile: Profile) {
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+}
+
+function loadWebSearchEnabled(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const raw = localStorage.getItem(WEB_SEARCH_KEY);
+    return raw === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function saveWebSearchEnabled(enabled: boolean) {
+  localStorage.setItem(WEB_SEARCH_KEY, String(enabled));
 }
 
 // === Markdown Rendering Helpers ===
@@ -572,17 +587,24 @@ export default function MasterAgentPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [enableWebSearch, setEnableWebSearch] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Load profile from localStorage on mount
+  // Load profile and web search setting from localStorage on mount
   useEffect(() => {
     const saved = loadProfile();
     if (saved) {
       setProfile(saved);
       setProfileCollapsed(true);
     }
+    setEnableWebSearch(loadWebSearchEnabled());
   }, []);
+
+  // Save web search preference when it changes
+  useEffect(() => {
+    saveWebSearchEnabled(enableWebSearch);
+  }, [enableWebSearch]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -644,6 +666,7 @@ export default function MasterAgentPage() {
           profile: profile ?? undefined,
           question,
           history, // Send conversation history
+          enableWebSearch, // Send web search preference
           locale: 'zh', // TODO: detect from next-intl
         }),
       });
@@ -711,7 +734,7 @@ export default function MasterAgentPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading, profile, t]);
+  }, [input, isLoading, profile, enableWebSearch, messages, t]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -803,6 +826,20 @@ export default function MasterAgentPage() {
             t('master.send')
           )}
         </button>
+      </div>
+
+      {/* Web Search Toggle */}
+      <div className="mt-2 flex items-center justify-center gap-2">
+        <input
+          type="checkbox"
+          id="enableWebSearch"
+          checked={enableWebSearch}
+          onChange={(e) => setEnableWebSearch(e.target.checked)}
+          className="h-3.5 w-3.5 rounded border-gray-300 text-gray-900 focus:ring-1 focus:ring-gray-500"
+        />
+        <label htmlFor="enableWebSearch" className="text-xs text-gray-600 cursor-pointer">
+          {t('master.enableWebSearch')}
+        </label>
       </div>
 
       {/* Disclaimer */}

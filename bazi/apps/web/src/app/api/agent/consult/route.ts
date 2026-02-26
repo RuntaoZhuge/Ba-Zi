@@ -314,6 +314,16 @@ const SYSTEM_PROMPT_ZH = `你是一位精通多种传统术数的命理大师，
 - 将专业术语转化为通俗易懂的语言
 - 给出具体、可操作的建议
 
+**联网搜索工具使用指南：**
+- 当需要**实时信息**时，使用 web_search 工具获取最新数据
+- 适用场景：
+  * 当前日期、时间、节气（"今天是几号？"、"现在什么节气？"）
+  * 最新新闻、时事热点（"最近股市行情如何？"、"今天天气怎么样？"）
+  * 地理位置信息（"北京在哪个方位？"、"上海的经纬度是多少？"）
+  * 实时数据（"今天黄历宜忌"、"2026年春节是哪天？"）
+- **不要滥用搜索**：如果问题可以基于命理知识直接回答，无需搜索
+- 搜索结果会自动融入你的分析，自然地引用即可
+
 **对话互动模式（核心要求）：**
 - 这是一个**持续对话**，不是一次性问答。你要像真实的命理师一样与求问者互动
 - 当求问者提到"之前说的"、"刚才那个"或对某个概念表示不理解时，要**详细解释之前分析中的专业术语和概念**
@@ -351,6 +361,16 @@ Your role:
 - Translate technical jargon into accessible language
 - Provide specific, actionable advice
 
+**Web Search Tool Usage Guide:**
+- Use the web_search tool when you need **real-time information**
+- Applicable scenarios:
+  * Current date, time, solar terms ("What's today's date?", "What solar term is it now?")
+  * Latest news, current events ("How's the stock market recently?", "What's the weather today?")
+  * Geographical information ("Where is Beijing?", "What are Shanghai's coordinates?")
+  * Real-time data ("Today's almanac", "When is Chinese New Year 2026?")
+- **Don't overuse search**: If a question can be answered directly based on divination knowledge, no search is needed
+- Search results will be automatically integrated into your analysis; cite them naturally
+
 **Interactive Dialogue Mode (Core Requirement):**
 - This is an **ongoing conversation**, not a one-time Q&A. Interact with the querent like a real divination master would
 - When the querent mentions "what you said before" or "that concept" or shows confusion, **explain technical terms and concepts from previous analysis in detail**
@@ -380,6 +400,54 @@ Requirements:
 - Use **bold** for key terms and - lists for bullet points
 - If the querent might have further questions or need more clarification, you may ask follow-up questions at the end, but it's not mandatory`;
 
+// === Web Search Function ===
+
+async function searchWeb(query: string): Promise<string> {
+  const tavilyApiKey = process.env.TAVILY_API_KEY;
+  if (!tavilyApiKey) {
+    return '搜索服务暂未配置';
+  }
+
+  try {
+    const response = await fetch('https://api.tavily.com/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: tavilyApiKey,
+        query,
+        search_depth: 'basic',
+        include_answer: true,
+        max_results: 5,
+      }),
+    });
+
+    if (!response.ok) {
+      return `搜索失败：${response.statusText}`;
+    }
+
+    const data = await response.json();
+
+    // Format search results
+    let result = '';
+    if (data.answer) {
+      result += `\n摘要：${data.answer}\n\n`;
+    }
+    if (data.results && data.results.length > 0) {
+      result += '相关信息：\n';
+      data.results.forEach((item: { title: string; content: string; url: string }, index: number) => {
+        result += `${index + 1}. ${item.title}\n${item.content}\n来源：${item.url}\n\n`;
+      });
+    }
+
+    return result || '未找到相关信息';
+  } catch (error) {
+    console.error('Search error:', error);
+    return '搜索出错，请稍后重试';
+  }
+}
+
 // === Main Handler ===
 
 export async function POST(req: Request) {
@@ -388,10 +456,11 @@ export async function POST(req: Request) {
     return Response.json({ error: 'NO_API_KEY' }, { status: 503 });
   }
 
-  const { profile, question, history = [], locale = 'zh' } = (await req.json()) as {
+  const { profile, question, history = [], enableWebSearch = false, locale = 'zh' } = (await req.json()) as {
     profile?: Profile;
     question: string;
     history?: Array<{ role: 'user' | 'assistant'; content: string }>;
+    enableWebSearch?: boolean;
     locale?: string;
   };
 
@@ -509,9 +578,99 @@ Based on the above chart data, provide a comprehensive analysis addressing the q
   // Add current question
   messages.push({ role: 'user', content: userPrompt });
 
-  // Use reasoning model for better quality responses
+  // Define search tool for function calling
+  const tools = enableWebSearch
+    ? [
+        {
+          type: 'function' as const,
+          function: {
+            name: 'web_search',
+            description:
+              '联网搜索获取实时信息。当需要以下信息时使用：当前日期、最新新闻、实时天气、股市行情、节气日期、地理位置信息、时事热点等。Use this tool to search the web for real-time information like current date, latest news, weather, stock market, solar terms, geographical info, or current events.',
+            parameters: {
+              type: 'object',
+              properties: {
+                query: {
+                  type: 'string',
+                  description: '搜索关键词 / Search query',
+                },
+              },
+              required: ['query'],
+            },
+          },
+        },
+      ]
+    : undefined;
+
+  // Handle function calling if web search is enabled
+  if (enableWebSearch && tools) {
+    // First call to check if tool use is needed (non-streaming)
+    const initialResponse = await client.chat.completions.create({
+      model: 'deepseek-chat',
+      messages,
+      tools,
+      temperature: 0.7,
+      max_tokens: 8000,
+    });
+
+    const choice = initialResponse.choices[0];
+    if (choice.message.tool_calls && choice.message.tool_calls.length > 0) {
+      // Execute tool calls
+      messages.push(choice.message as any);
+
+      for (const toolCall of choice.message.tool_calls) {
+        if (toolCall.function.name === 'web_search') {
+          const args = JSON.parse(toolCall.function.arguments);
+          const searchResult = await searchWeb(args.query);
+
+          messages.push({
+            role: 'tool' as any,
+            tool_call_id: toolCall.id,
+            content: searchResult,
+          } as any);
+        }
+      }
+
+      // Second call with tool results (streaming)
+      const stream = await client.chat.completions.create({
+        model: 'deepseek-chat',
+        messages,
+        stream: true,
+        temperature: 0.7,
+        max_tokens: 8000,
+      });
+
+      const encoder = new TextEncoder();
+      const readable = new ReadableStream({
+        async start(controller) {
+          try {
+            controller.enqueue(encoder.encode(`<!--methods:${methodsMeta}-->\n`));
+            for await (const chunk of stream) {
+              const text = chunk.choices[0]?.delta?.content || '';
+              if (text) {
+                controller.enqueue(encoder.encode(text));
+              }
+            }
+          } catch {
+            // Stream interrupted
+          } finally {
+            controller.close();
+          }
+        },
+      });
+
+      return new Response(readable, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache',
+        },
+      });
+    }
+  }
+
+  // Default streaming response (no tool calls or web search disabled)
   const stream = await client.chat.completions.create({
-    model: 'deepseek-reasoner',
+    model: enableWebSearch ? 'deepseek-chat' : 'deepseek-reasoner',
     messages,
     stream: true,
     temperature: 0.7,
@@ -522,10 +681,7 @@ Based on the above chart data, provide a comprehensive analysis addressing the q
   const readable = new ReadableStream({
     async start(controller) {
       try {
-        // Send method metadata as first line so frontend can display badges
-        controller.enqueue(
-          encoder.encode(`<!--methods:${methodsMeta}-->\n`),
-        );
+        controller.enqueue(encoder.encode(`<!--methods:${methodsMeta}-->\n`));
         for await (const chunk of stream) {
           const text = chunk.choices[0]?.delta?.content || '';
           if (text) {

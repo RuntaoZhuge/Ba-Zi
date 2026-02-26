@@ -627,6 +627,7 @@
     "example4": "Which direction should I develop in?",
     "inputPlaceholder": "Enter your question...",
     "send": "Send",
+    "enableWebSearch": "🌐 Enable web search (get real-time info)",
     "error": "Analysis failed, please try again",
     "noApiKey": "AI analysis service is not configured",
     "disclaimer": "AI analysis is for reference only and does not constitute professional advice"

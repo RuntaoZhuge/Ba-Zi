@@ -627,6 +627,7 @@
     "example4": "我该往哪个方向发展？",
     "inputPlaceholder": "请输入您的问题...",
     "send": "发送",
+    "enableWebSearch": "🌐 开启联网搜索（获取实时信息）",
     "error": "分析失败，请重试",
     "noApiKey": "AI 分析服务暂未配置",
     "disclaimer": "AI 分析仅供参考，不构成任何专业建议"
